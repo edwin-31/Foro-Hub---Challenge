@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15
+    container_name: forohub-db
+    restart: always
+    environment:
+      POSTGRES_DB: forohub-db
+      POSTGRES_USER: ${DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
+    ports:
+      - "${DB_HOST_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - forohub-network
+
+volumes:
+  postgres_data:
+
+networks:
+  forohub-network:
+    driver: bridge

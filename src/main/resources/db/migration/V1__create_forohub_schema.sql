@@ -1,0 +1,37 @@
+CREATE TYPE topic_status AS ENUM ('OPEN', 'CLOSED');
+
+CREATE TABLE "user" (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE course (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE topic (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status topic_status NOT NULL DEFAULT 'OPEN',
+    author_id BIGINT NOT NULL,
+    course_id BIGINT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE
+);
+
+CREATE TABLE reply (
+    id BIGSERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    author_id BIGINT NOT NULL,
+    topic_id BIGINT NOT NULL,
+    solution BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (author_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES topic(id) ON DELETE CASCADE
+);
