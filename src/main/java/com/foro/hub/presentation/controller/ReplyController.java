@@ -4,6 +4,7 @@ import com.foro.hub.presentation.dto.reply.CreateReplyDTO;
 import com.foro.hub.presentation.dto.reply.ReplyDTO;
 import com.foro.hub.service.interfaces.IReplyService;
 import com.foro.hub.util.exception.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/replies")
+@SecurityRequirement(name = "bearer-key")
 public class ReplyController {
 
     @Autowired

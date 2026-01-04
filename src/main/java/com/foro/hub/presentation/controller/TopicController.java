@@ -3,8 +3,10 @@ package com.foro.hub.presentation.controller;
 import com.foro.hub.presentation.dto.reply.ReplyDTO;
 import com.foro.hub.presentation.dto.topic.CreateTopicDTO;
 import com.foro.hub.presentation.dto.topic.TopicDTO;
+import com.foro.hub.presentation.dto.topic.TopicResponseDTO;
 import com.foro.hub.service.interfaces.IReplyService;
 import com.foro.hub.service.interfaces.ITopicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/topics")
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
 
     @Autowired
@@ -34,8 +37,8 @@ public class TopicController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TopicDTO> findById(@PathVariable Long id) {
-        Optional<TopicDTO> topic = topicService.findById(id);
+    public ResponseEntity<TopicResponseDTO> findById(@PathVariable Long id) {
+        Optional<TopicResponseDTO> topic = topicService.findById(id);
         return topic.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

@@ -9,6 +9,7 @@ import com.foro.hub.persistence.repository.IUserRepository;
 import com.foro.hub.presentation.dto.reply.ReplyDTO;
 import com.foro.hub.presentation.dto.topic.CreateTopicDTO;
 import com.foro.hub.presentation.dto.topic.TopicDTO;
+import com.foro.hub.presentation.dto.topic.TopicResponseDTO;
 import com.foro.hub.service.interfaces.ITopicService;
 import com.foro.hub.util.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +48,15 @@ public class TopicService implements ITopicService {
     }
 
     @Override
-    public Optional<TopicDTO> findById(Long id) {
+    public Optional<TopicResponseDTO> findById(Long id) {
         return topicRepository.findById(id)
-                .map(topic -> new TopicDTO(
-                        topic.getId(),
+                .map(topic -> new TopicResponseDTO(
                         topic.getTitle(),
                         topic.getMessage(),
                         topic.getCreationDate(),
                         topic.getStatus(),
-                        topic.getAuthor().getId(),
-                        topic.getCourseEntity().getId()
+                        topic.getAuthor().getName(),
+                        topic.getCourseEntity().getName()
                 ));
     }
 
