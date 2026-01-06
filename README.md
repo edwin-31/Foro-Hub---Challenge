@@ -37,7 +37,7 @@ Follow these instructions to get a local copy up and running for development and
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/Foro-Hub---Challenge.git
+   git clone https://github.com/edwin-31/Foro-Hub---Challenge.git
    cd Foro-Hub---Challenge
    ```
 
